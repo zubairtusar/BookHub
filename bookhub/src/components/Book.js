@@ -2,13 +2,13 @@ import react from "react";
 import { Link } from "react-router-dom";
 
 const Book = (props) => {
-    console.log(props.data.volumeInfo.imageLinks);
-    const ImageURL = props.data.volumeInfo.imageLinks.thumbnail;
+    //console.log(props.data.volumeInfo.imageLinks);
+    //const ImageURL = props.data.volumeInfo.imageLinks.thumbnail;
     return (
         <div class="col s12 m3">
             <div class="card">
                 <div class="card-image">
-                    {props.data.volumeInfo.imageLinks.thumbnail == null ? (
+                    {props.data.volumeInfo.imageLinks == undefined ? (
                         <img
                             src="https://picsum.photos/200/300"
                             alt=""
@@ -16,7 +16,7 @@ const Book = (props) => {
                         />
                     ) : (
                             <img
-                                src={ImageURL}
+                                src={props.data.volumeInfo.imageLinks.thumbnail}
                                 alt=""
                                 style={{ width: "10", height: "20" }}
                             />
