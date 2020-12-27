@@ -1,2 +1,5 @@
 npm install create-react-app
 npx create-react-app bookhub
+npm install axios
+npm install react-router-dom
+npm install react-bootstrap bootstrap
