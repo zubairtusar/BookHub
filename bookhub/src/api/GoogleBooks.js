@@ -8,7 +8,7 @@ const getBooksByTerm=(SearchTerm, setBooks)=>{
     GoogleBooks.get('/volumes',
         {
         params: {
-                key: "AIzaSyC_JVwxNjZkwqbukQsRIgaOK76eaVdmDPw",
+                //key: "",
                 q: SearchTerm,
             }
         }).then((response)=>{
