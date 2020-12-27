@@ -8,9 +8,9 @@ const BookDetails = (props) => {
     useEffect(() => {
         getBookDetails(props.location.book_id, setCurrentBook);
     }, []);
-
     return (
         <div>
+            {console.log("details", currentBook)}
             <div class="row">
                 <div class="col s12 m7">
                     <div class="card">
@@ -47,6 +47,8 @@ const BookDetails = (props) => {
             </div>
         </div>
     );
+
+    
 };
 
 export default BookDetails;

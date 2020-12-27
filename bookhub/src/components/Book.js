@@ -9,6 +9,7 @@ const Book = (props) => {
             <div class="card">
                 <div class="card-image">
                     {props.data.volumeInfo.imageLinks == undefined ? (
+                        //
                         <img
                             src="https://picsum.photos/200/300"
                             alt=""
