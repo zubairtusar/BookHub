@@ -9,10 +9,10 @@ const DropDown = (props) => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">A-Z</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Z-A</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Newest</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Oldest</Dropdown.Item>
+                <Dropdown.Item onSelect={props.onSelectAZ}>A-Z</Dropdown.Item>
+                <Dropdown.Item onSelect={props.onSelectZA}>Z-A</Dropdown.Item>
+                <Dropdown.Item onSelect={props.onSelectNewest}>Newest</Dropdown.Item>
+                <Dropdown.Item onSelect={props.onSelectOldest}>Oldest</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
     );
