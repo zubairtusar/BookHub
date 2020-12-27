@@ -24,8 +24,9 @@ const Book = (props) => {
 
                     <span class="card-title">{props.data.volumeInfo.title}</span>
                 </div>
-                <div class="card-content">{props.data.volumeInfo.publishedDate}</div>
+                <div class="card-content">{props.data.volumeInfo.authors[0]}</div>
                 <div class="card-action">
+                    <Link to={{pathname: "/book/" + props.data.id, book_id: props.data.id}}>See Details</Link>
                     
                 </div>
             </div>

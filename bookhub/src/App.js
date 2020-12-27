@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Navbar from "./components/Navbar";
 import Searchbar from './components/Searchbar';
 import DropDown from './components/DropDown';
 import BookList from './components/BookList';
@@ -89,7 +88,6 @@ const App = () =>{
 
   return <div>
     <div>
-      <Navbar/>
       <div style={{display:'flex', alignItems:'center', marginRight: 150}}>
         <Searchbar handleChange={handleChange} handleSubmit={handleSubmit} />
         <DropDown onSelectAZ={sortByAlphabetAscending} onSelectZA={sortByAlphabetDescending} onSelectNewest={sortByNewest} onSelectOldest={sortByOldest}/>

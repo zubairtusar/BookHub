@@ -20,4 +20,13 @@ const getBooksByTerm=(SearchTerm, setBooks, start_Index, setTotalPages)=>{
     });
 }
 
-export { getBooksByTerm };
+const getBookDetails = (bookID, setCurrentBook) => {
+    GoogleBooks.get('volumes/'+bookID)
+        .then((response) => {
+            console.log("book", response.data);
+            setCurrentBook(response.data);
+        });
+}
+
+
+export { getBooksByTerm, getBookDetails };
