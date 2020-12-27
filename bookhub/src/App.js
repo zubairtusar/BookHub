@@ -1,8 +1,9 @@
-import React, {useState, forceUpdate} from 'react';
+import React, {useState, useEffect} from 'react';
 import Navbar from "./components/Navbar";
 import Searchbar from './components/Searchbar';
 import DropDown from './components/DropDown';
 import BookList from './components/BookList';
+import Pagination from './components/Pagination';
 import { getBooksByTerm} from "./api/GoogleBooks";
 
 
@@ -10,10 +11,12 @@ import { getBooksByTerm} from "./api/GoogleBooks";
 const App = () =>{
   const [searchTerm, setSearchTerm] = useState("");
   const [books, setBooks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   const handleSubmit = async(event)=>{
     event.preventDefault();
-    await getBooksByTerm(searchTerm, setBooks);
+    await getBooksByTerm(searchTerm, setBooks, currentPage, setTotalPages);
   };
 
   const handleChange = (event) => {
@@ -23,19 +26,16 @@ const App = () =>{
 
   const sortByAlphabetAscending = () => {
     if (books == undefined) {
-      //
     } else {
       console.log("Triggered AZ");
       let sorted = books;
-      setBooks([]);
       sorted = sorted.sort((a, b) => {
         //console.log("a", a);
         if(a.volumeInfo.title > b.volumeInfo.title) { return 1 }
         else if (a.volumeInfo.title < b.volumeInfo.title) { return -1 }
         else if(a.volumeInfo.title = b.volumeInfo.title) { return 0 };
       });
-      console.log(sorted);
-      setBooks(sorted);
+      setBooks([...sorted]);
     }
   };
   const sortByAlphabetDescending = () => {
@@ -44,15 +44,13 @@ const App = () =>{
     } else {
       console.log("Triggered ZA");
       let sorted = books;
-      setBooks([]);
       sorted = sorted.sort((a, b) => {
         //console.log("a", a);
         if (a.volumeInfo.title < b.volumeInfo.title) { return 1 }
         else if (a.volumeInfo.title > b.volumeInfo.title) { return -1 }
         else if (a.volumeInfo.title = b.volumeInfo.title) { return 0 };
       });
-      console.log(sorted);
-      setBooks(sorted);
+      setBooks([...sorted]);
     }
   };
   const sortByNewest = () => {
@@ -60,13 +58,13 @@ const App = () =>{
 
     }else{
       console.log("Triggered Newest");
-      let sorted = books;
+      let sorted = [...books];
       sorted = sorted.sort((a, b) => {
         //console.log("a", a);
         return (new Date(b.volumeInfo.publishedDate) - new Date(a.volumeInfo.publishedDate));
       });
       console.log(sorted);
-      setBooks(sorted);
+      setBooks([...sorted]);
     }
   };
   const sortByOldest = () => {
@@ -80,8 +78,13 @@ const App = () =>{
         return (new Date(a.volumeInfo.publishedDate) - new Date(b.volumeInfo.publishedDate));
       });
       console.log(sorted);
-      setBooks(sorted);
+      setBooks([...sorted]);
     }
+  };
+
+  const nextPage = async(page_number) => {
+    setCurrentPage(page_number);
+    await getBooksByTerm(searchTerm, setBooks, currentPage*20, setTotalPages);
   };
 
   return <div>
@@ -92,6 +95,7 @@ const App = () =>{
         <DropDown onSelectAZ={sortByAlphabetAscending} onSelectZA={sortByAlphabetDescending} onSelectNewest={sortByNewest} onSelectOldest={sortByOldest}/>
       </div>
       <BookList books={books}/>
+      {totalPages > 1 ? <Pagination nextPage={nextPage} currentPage={currentPage} totalPages={totalPages}/>:""}
     </div>
   </div>;
 }
